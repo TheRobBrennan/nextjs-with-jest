@@ -1,6 +1,7 @@
 import monthlyCharge, { daysInMonth } from "./monthlycharge";
+import type { Subscription, User } from './monthlycharge'
 
-const users = [
+const users: User[] = [
   {
     id: 1,
     name: "Employee #1",
@@ -24,7 +25,7 @@ const users = [
   },
 ];
 
-const plan = {
+const plan: Subscription = {
   id: 1,
   customerId: 1,
   monthlyPriceInCents: 5000,

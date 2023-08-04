@@ -1,11 +1,24 @@
 // monthlycharge.js
+export interface Subscription {
+  id: number,
+  customerId: number,
+  monthlyPriceInCents: number,
+};
 
-export function daysInMonth(year, month) {
+export interface User {
+  id: number,
+  name: string,
+  activatedOn: Date,
+  deactivatedOn: Date | null,
+  customerId: number,
+}
+
+export function daysInMonth(year: number, month: number) {
   // Get the last day of the current month (month + 1)
   return new Date(year, month, 0).getDate();
 }
 
-export default function monthlyCharge(month, subscription, users) {
+export default function monthlyCharge(month: string, subscription: Subscription, users: User[]) {
   const [year, m] = month.split("-");
   const yearInt = parseInt(year);
   const monthInt = parseInt(m);
@@ -36,9 +49,9 @@ export default function monthlyCharge(month, subscription, users) {
           const daysActiveInMonth = Math.min(
             daysInMonthCount,
             1 +
-              Math.floor(
-                (deactivatedOn - firstDayOfMonth) / (1000 * 60 * 60 * 24)
-              ) // Include the end date in the count
+            Math.floor(
+              (deactivatedOn.getTime() - firstDayOfMonth.getTime()) / (1000 * 60 * 60 * 24)
+            ) // Include the end date in the count
           );
 
           // Calculate the partial charge based on the number of days the user was active
